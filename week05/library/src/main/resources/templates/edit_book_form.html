@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Book</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h3 {
+            margin-bottom: 20px;
+            color: #333333;
+            font-size: 24px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+            box-sizing: border-box; /* Ensures padding doesn't affect width */
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: #ffffff;
+            border: none;
+            padding: 12px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        a:hover {
+            color: #0056b3;
+            cursor: pointer;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h3>Edit Book</h3>
+    <form method="POST" th:action="@{/books/update/{idx}(idx=${book.id})}" th:object="${book}">
+        <input type="text" th:field="*{title}" placeholder="Title"/>
+        <input type="text" th:field="*{description}" placeholder="Description"/>
+        <input type="text" th:field="*{year}" placeholder="Year"/>
+        <input type="text" th:field="*{author}" placeholder="Author"/>
+        <input type="submit" value="Update"/>
+    </form>
+        <a onclick="history.go(-1)">Back to the list</a>
+</div>
+</body>
+</html>

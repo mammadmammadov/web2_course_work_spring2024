@@ -1,5 +1,6 @@
 package wm2.az.edu.ada.library.config;
 
+import wm2.az.edu.ada.library.BookIdSequence;
 import wm2.az.edu.ada.library.model.Book;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -11,7 +12,7 @@ public class Beans {
     @Bean
     @Scope("prototype")
     public Book defaultPerson(){
-        return new Book(0,"", "", "", "");
+        return new Book(BookIdSequence.next(),"", "", "", "");
     }
 
 

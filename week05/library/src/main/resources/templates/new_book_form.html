@@ -62,6 +62,7 @@
 <div class="container">
     <h3>Add a new book</h3>
     <form method="POST" action="#" th:action="@{/books/save}" th:object="${book}">
+
         <input type="text" th:field="*{title}" placeholder="Title"/>
         <input type="text" th:field="*{description}" placeholder="Description"/>
         <input type="text" th:field="*{year}" placeholder="Year"/>

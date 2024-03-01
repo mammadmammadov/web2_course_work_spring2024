@@ -91,6 +91,7 @@
             font-style: italic;
             margin-top: 20px;
         }
+
     </style>
 </head>
 <body>
@@ -116,7 +117,7 @@
             <td th:text="${book.year}"></td>
             <td th:text="${book.author}"></td>
             <td>
-                <a th:href="@{'/books/edit/' + ${rowStat.index}}" class="edit-link">Edit ✏️</a>
+                <a th:href="@{'/books/edit/' + ${book.id}}" class="edit-link">Edit ✏️</a>
                 <a th:href="@{/books/delete/{idx}(idx=${rowStat.index})}" class="delete-link">Delete 🗑️</a>
             </td>
         </tr>
@@ -126,13 +127,3 @@
 </div>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-

@@ -5,12 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import wm2.az.edu.ada.library.BookIdSequence;
+import wm2.az.edu.ada.library.IdSequence;
 import wm2.az.edu.ada.library.model.Book;
 import wm2.az.edu.ada.library.service.BookService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping("/books")
@@ -39,22 +36,32 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @GetMapping("/delete/{idx}")
-    public String deleteBook(@PathVariable Integer idx) {
-        bookService.deleteBook(idx);
+    @GetMapping("/delete/{id}")
+    public String deleteBook(@PathVariable Integer id) {
+        bookService.deleteBook(id);
         return "redirect:/books";
     }
 
-    @GetMapping("/edit/{idx}")
-    public String editBook(@PathVariable Integer idx, Model model) {
-        Book bookToEdit = bookService.getBook(idx);
-        model.addAttribute("book", bookToEdit);
+    @GetMapping("/edit/{id}")
+    public String editBook(@PathVariable("id") Integer id, Model model) {
+        Book book = bookService.findBookById(id);
+        model.addAttribute("book", book);
         return "edit_book_form";
     }
 
-    @PostMapping("/update/{idx}")
-    public String updateBook(@PathVariable Long idx, @ModelAttribute("book") Book updatedBook) {
-        bookService.updateBook(updatedBook);
+
+    @PostMapping("/update/{id}")
+    public String updateBook(@PathVariable("id") Integer id, @ModelAttribute("book") Book updatedBook) {
+        Book existingBook = bookService.findBookById(id);
+        if (existingBook != null) {
+
+            existingBook.setId(IdSequence.next());
+            existingBook.setTitle(updatedBook.getTitle());
+            existingBook.setDescription(updatedBook.getDescription());
+            existingBook.setYear(updatedBook.getYear());
+            existingBook.setAuthor(updatedBook.getAuthor());
+        }
         return "redirect:/books";
     }
+
 }
